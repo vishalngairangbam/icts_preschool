@@ -88,7 +88,7 @@ with a set of target labels.
 """
 
 def accuracy(labels, predictions):
-    acc = sum(abs(l - p) < 1e-5 for l, p in zip(labels, predictions))
+    acc = np.sum(labels*predictions>0)
     acc = acc / len(labels)
     return acc
 
@@ -101,7 +101,7 @@ def cost(weights, bias, X, Y):
     predictions = [variational_classifier(weights, bias, x) for x in X]
     return square_loss(Y, predictions)
 
-x1=np.random.normal(loc=[-4,-2,0,3],size=(1000,4))
+x1=np.random.normal(loc=[-4,-2,0,2],size=(1000,4))
 x2=np.random.normal(loc=[-3,-1,1,3],size=(1000,4))
 from sklearn.preprocessing import MinMaxScaler
 X=np.concatenate((x1,x2),axis=0)
